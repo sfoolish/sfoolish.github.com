@@ -1,0 +1,21 @@
+markdown: kramdown
+pygments: true
+safe: false
+permalink: /posts/:title.html
+exclude:
+  - README.md
+
+host: sfoolish.github.com
+
+custom:
+    category:
+        hello: world
+    categories:
+      - name:  hello
+        title: world
+
+meta:
+    authors:
+      - name: sfoolish
+        email: sfoolish@gmail.com
+
