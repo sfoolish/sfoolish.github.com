@@ -1,2 +1,2 @@
-[Sfoolish's Blog](http://sfoolish.github.com/)
+[sfoolish's blog](http://sfoolish.github.com/)
 ======================
