@@ -9,6 +9,7 @@ host: sfoolish.github.com
 
 custom:
     category:
+        linux: linux
         python: python
         technology: 技术
         tools: 工具使用
@@ -16,6 +17,9 @@ custom:
         misc: 杂七杂八
 
     categories:
+      - name: linux
+        title: linux
+
       - name: python
         title: python
 
