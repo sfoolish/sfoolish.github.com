@@ -1,7 +1,7 @@
 ---
 layout: post
 title: 如何高效使用google reader
-category: hello
+category: tools
 tags: github markdown
 ---
 

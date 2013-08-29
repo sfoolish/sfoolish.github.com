@@ -9,13 +9,30 @@ host: sfoolish.github.com
 
 custom:
     category:
-        hello: world
+        python: python
+        technology: 技术
+        tools: 工具使用
+        thinking: 我的思考
+        misc: 杂七杂八
+
     categories:
-      - name:  hello
-        title: world
+      - name: python
+        title: python
+
+      - name: technology
+        title: 技术
+
+      - name:  tools
+        title: 工具使用
+
+      - name: misc
+        title: 杂七杂八
+
+      - name: thinking
+        title: 我的思考
 
 meta:
     authors:
       - name: sfoolish
-        email: sfoolish@gmail.com
+        email: sfoolish.liang@gmail.com
 

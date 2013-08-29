@@ -1,7 +1,7 @@
 ---
 layout: post
 title: my github blog
-category: hello
+category: tools
 tags: github markdown
 ---
 
