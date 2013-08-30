@@ -45,10 +45,12 @@
 
 <script src="http://elfjs.googlecode.com/files/elf-0.3.3-min.js"></script>
 <script src="/assets/js/site.js"></script>
-<script src="/assets/js/highlight.js"></script>
+<script src="/assets/js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<!-- <script src="/assets/js/highlight.js"></script>
 <script src="/assets/js/hljs/languages/css.js"></script>
 <script src="/assets/js/hljs/languages/xml.js"></script>
-<script src="/assets/js/hljs/languages/javascript.js"></script>
+<script src="/assets/js/hljs/languages/javascript.js"></script> -->
 {% for script in page.scripts %}<script src="{{ script }}"></script>
 {% endfor %}
 

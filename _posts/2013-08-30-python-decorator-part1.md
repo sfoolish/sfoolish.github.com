@@ -52,20 +52,14 @@ Well, that means that a function can return another function.
 
 #### Handcrafted decorators && Decorators demystified
 
-    # A decorator is a function that expects ANOTHER function as parameter
     def my_shiny_new_decorator(a_function_to_decorate):
-    
         def the_wrapper_around_the_original_function():
-    
             print "Before the function runs"
-    
             a_function_to_decorate()
-    
             print "After the function runs"
     
         return the_wrapper_around_the_original_function
     
-    # Now imagine you create a function you don't want to ever touch again.
     def a_stand_alone_function():
         print "I am a stand alone function, don't you dare modify me"
     
@@ -97,7 +91,7 @@ Decorators are just a pythonic variant of the [decorator design pattern](http://
 
 You can cumulate decorators. The order you set the decorators MATTERS. 原文例子太长，引用 Python-2.7.3/Doc/whatsnew/2.4.rst 中的一段描述：
 
-    More generally, if you have the following::
+More generally, if you have the following::
     
         @A
         @B
@@ -105,7 +99,7 @@ You can cumulate decorators. The order you set the decorators MATTERS. 原文例
         def f ():
             ...
     
-    It's equivalent to the following pre-decorator code::
+It's equivalent to the following pre-decorator code::
     
         def f(): ...
         f = A(B(C(f)))
