@@ -41,7 +41,7 @@ tags: python closure
             return d['y']
         return inner
 
-"it’s kinda weird that we can’t access the non local variable but we can access the dictionary." 是啊，太怪了，局部变量不行，字典却可以，具体原因待查待补充。
+"it’s kinda weird that we can’t access the non local variable but we can access the dictionary." 是啊，太怪了，局部变量不行，字典却可以，**具体原因待查待补充**。
 
 ## python closure counter 最终版本
 
@@ -61,6 +61,8 @@ tags: python closure
     ``` output
     (1, 2, 1, 2)
     ```
+
+注意这里 `counter.count = 0` 不能放在 `def counter():` 上面，否则又是个悲剧，**具体原因待查待补充**。
 
 ## 总结
 
