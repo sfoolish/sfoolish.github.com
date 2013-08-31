@@ -42,15 +42,174 @@ tags: python decorator
             return wrapper
         return w
 
-### Django use decorators to manage caching and view permissions. 
+### Django use decorators to manage caching and view permissions.
 
-**TODO**
+#### cache_page 的使用方法
+
+文档中的简单试用实例
+
+    # https://docs.djangoproject.com/en/dev/topics/cache/#django.views.decorators.cache.cache_page
+    from django.views.decorators.cache import cache_page
+
+    @cache_page(60 * 15)
+    def my_view(request):
+        ...
+
+#### cache_page 的代码实现
+
+    # https://github.com/django/django/blob/1.6b1/django/views/decorators/cache.py#L7
+    def cache_page(*args, **kwargs):
+        """
+        Decorator for views that tries getting the page from the cache and
+        populates the cache if the page isn't in the cache yet.
+    
+        The cache is keyed by the URL and some data from the headers.
+        Additionally there is the key prefix that is used to distinguish different
+        cache areas in a multi-site setup. You could use the
+        sites.get_current_site().domain, for example, as that is unique across a Django
+        project.
+    
+        Additionally, all headers from the response's Vary header will be taken
+        into account on caching -- just like the middleware does.
+        """
+        # We also add some asserts to give better error messages in case people are
+        # using other ways to call cache_page that no longer work.
+        if len(args) != 1 or callable(args[0]):
+            raise TypeError("cache_page has a single mandatory positional argument: timeout")
+        cache_timeout = args[0]
+        cache_alias = kwargs.pop('cache', None)
+        key_prefix = kwargs.pop('key_prefix', None)
+        if kwargs:
+            raise TypeError("cache_page has two optional keyword arguments: cache and key_prefix")
+    
+        return decorator_from_middleware_with_args(CacheMiddleware)(cache_timeout=cache_timeout, cache_alias=cache_alias, key_prefix=key_prefix)
+
+    # https://github.com/django/django/blob/1.6b1/django/utils/decorators.py#L47
+    def decorator_from_middleware_with_args(middleware_class):
+        """
+        Like decorator_from_middleware, but returns a function
+        that accepts the arguments to be passed to the middleware_class.
+        Use like::
+    
+             cache_page = decorator_from_middleware_with_args(CacheMiddleware)
+             # ...
+    
+             @cache_page(3600)
+             def my_view(request):
+                 # ...
+        """
+        return make_middleware_decorator(middleware_class)
+    
+    # https://github.com/django/django/blob/1.6b1/django/utils/decorators.py#L84
+    def make_middleware_decorator(middleware_class):
+        def _make_decorator(*m_args, **m_kwargs):
+            middleware = middleware_class(*m_args, **m_kwargs)
+            def _decorator(view_func):
+                @wraps(view_func, assigned=available_attrs(view_func))
+                def _wrapped_view(request, *args, **kwargs):
+                    if hasattr(middleware, 'process_request'):
+                        result = middleware.process_request(request)
+                        if result is not None:
+                            return result
+                    if hasattr(middleware, 'process_view'):
+                        result = middleware.process_view(request, view_func, args, kwargs)
+                        if result is not None:
+                            return result
+                    try:
+                        response = view_func(request, *args, **kwargs)
+                    except Exception as e:
+                        if hasattr(middleware, 'process_exception'):
+                            result = middleware.process_exception(request, e)
+                            if result is not None:
+                                return result
+                        raise
+                    if hasattr(response, 'render') and callable(response.render):
+                        if hasattr(middleware, 'process_template_response'):
+                            response = middleware.process_template_response(request, response)
+                        # Defer running of process_response until after the template
+                        # has been rendered:
+                        if hasattr(middleware, 'process_response'):
+                            callback = lambda response: middleware.process_response(request, response)
+                            response.add_post_render_callback(callback)
+                    else:
+                        if hasattr(middleware, 'process_response'):
+                            return middleware.process_response(request, response)
+                    return response
+                return _wrapped_view
+            return _decorator
+        return _make_decorator
+
+由 middleware_class 来具体实现做哪些装饰。 对与 cache_page 中的 middleware_class 是 CacheMiddleware ，由于本文只关注 decorator ，这里就不贴 CacheMiddleware 的代码。不过，CacheMiddleware 是个多重继承的好例子，这是题外话另文分析，详见： [TODO](http://TO.DO) 。
+
+---
+
+#### permission_required 使用方法
+
+    # https://docs.djangoproject.com/en/dev/topics/auth/default/#the-permission-required-decorator
+    from django.contrib.auth.decorators import permission_required
+    
+    @permission_required('polls.can_vote', login_url='/loginpage/')
+    def my_view(request):
+        ...
+
+#### permission_required 的代码实现
+
+    # https://github.com/django/django/blob/1.6b1/django/contrib/auth/decorators.py#L59
+    def permission_required(perm, login_url=None, raise_exception=False):
+        """
+        Decorator for views that checks whether a user has a particular permission
+        enabled, redirecting to the log-in page if neccesary.
+        If the raise_exception parameter is given the PermissionDenied exception
+        is raised.
+        """
+        def check_perms(user):
+            # First check if the user has the permission (even anon users)
+            if user.has_perm(perm):
+                return True
+            # In case the 403 handler should be called raise the exception
+            if raise_exception:
+                raise PermissionDenied
+            # As the last resort, show the login form
+            return False
+        return user_passes_test(check_perms, login_url=login_url)
+    
+    # https://github.com/django/django/blob/1.6b1/django/contrib/auth/decorators.py#L14
+    def user_passes_test(test_func, login_url=None, redirect_field_name=REDIRECT_FIELD_NAME):
+        """
+        Decorator for views that checks that the user passes the given test,
+        redirecting to the log-in page if necessary. The test should be a callable
+        that takes the user object and returns True if the user passes.
+        """
+    
+        def decorator(view_func):
+            @wraps(view_func, assigned=available_attrs(view_func))
+            def _wrapped_view(request, *args, **kwargs):
+                if test_func(request.user):
+                    return view_func(request, *args, **kwargs)
+                path = request.build_absolute_uri()
+                # urlparse chokes on lazy objects in Python 3, force to str
+                resolved_login_url = force_str(
+                    resolve_url(login_url or settings.LOGIN_URL))
+                # If the login url is the same scheme and net location then just
+                # use the path as the "next" url.
+                login_scheme, login_netloc = urlparse(resolved_login_url)[:2]
+                current_scheme, current_netloc = urlparse(path)[:2]
+                if ((not login_scheme or login_scheme == current_scheme) and
+                    (not login_netloc or login_netloc == current_netloc)):
+                    path = request.get_full_path()
+                from django.contrib.auth.views import redirect_to_login
+                return redirect_to_login(
+                    path, resolved_login_url, redirect_field_name)
+            return _wrapped_view
+        return decorator
 
 ### Twisted to fake inlining asynchronous functions calls.
 
 **TODO**
 
 ### Tornado 中用来处理异步
+
+#### asynchronous && gen 的使用方法
 
     # https://github.com/leporo/tornado-redis/blob/master/demos/simple/app.py#L14
     class MainHandler(tornado.web.RequestHandler):
@@ -65,6 +224,8 @@ tags: python decorator
         self.set_header('Content-Type', 'text/html')
         self.render("template.html", title="Simple demo",
                     foo=foo, bar=bar, zar=zar)
+
+#### asynchronous && gen 的代码实现
 
     # https://github.com/facebook/tornado/blob/v2.4.1/tornado/web.py#L1113
     def asynchronous(method):
@@ -133,7 +294,7 @@ tags: python decorator
             # no yield, so we're done
     return wrapper
 
-本文只关注实际代码中都是如何使用 decorator ，代码中的一下几行的进一部分分析详见：[TODO](http://TO.DO)
+本文只关注实际代码中都是如何使用和实现 decorator ，代码中的一下几行的进一部分分析详见：[TODO](http://TO.DO)
 
 * `foo = yield tornado.gen.Task(c.get, 'foo')`
 * `@functools.wraps(func)`
