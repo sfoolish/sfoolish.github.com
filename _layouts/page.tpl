@@ -37,7 +37,7 @@
 		<figure>
 			<figcaption><strong>sfoolish</strong></figcaption>
 		</figure>
-		<p>bla bla ...</p>
+		<p>又是一码农，单身嘿嘿，爱生活，爱代码，爱折腾。电子信息类专业小本，做过三年多嵌入式开发，准备去做 WEB 后端开发。八月初裸辞，在云南呆了近一个月，目前暂居大理剑川沙溪古镇。<strong>Available for hire</strong>, <a href="/liangqi_resume.html">简历 / RESUME / CV</a> .</p>
 	</div>
 	
 	<a href="http://github.com/sfoolish"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_orange_ff7600.png" alt="Fork me on GitHub"></a>
