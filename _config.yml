@@ -11,6 +11,7 @@ custom:
     category:
         linux: linux
         python: python
+        embedded: 嵌入式
         technology: 技术
         tools: 工具使用
         thinking: 我的思考
@@ -22,6 +23,9 @@ custom:
 
       - name: python
         title: python
+      
+      - name: embedded
+        title: 嵌入式
 
       - name: technology
         title: 技术
