@@ -7,24 +7,23 @@ tags: python decorator
 
 ## 核心原则
 
-"Decorators are wrappers which means that they let you execute code before and after the function they decorate without the need to modify the function itself." - - - [Understanding Python decorators][1]
+装饰器是一种包装，这意味着你不用修改原有函数，就能够在原函数的前后执行自定义的代码。"Decorators are wrappers which means that they let you execute code before and after the function they decorate without the need to modify the function itself."[1][1]
 
-“当我们遇到需要在执行函数前进行的一些检测或预处理（pre），或者后处理（post），同时这部分操作又可以抽象出来的时候，decorator发挥的时候，就到了！” - - - [关于Python decorator的应用][2]
+“当我们遇到需要在执行函数前进行的一些检测或预处理（pre），或者后处理（post），同时这部分操作又可以抽象出来的时候，decorator发挥的时候，就到了！”[2][2]
 
 “decorator的魔力就是它可以对所修饰的函数进行加工。那么这种加工是在不改变原来函数代码的情况下进行的。有点象我知道那么一点点的AOP(面向方面编程)的想法。使用 decorator 可以增加程序的灵活性，降低耦合度，使代码变得简单，清晰。
-” - - - [[Python学习]decorator的使用][3]
+”[3][3]
 
 ## 应用场景
 
 针对 [Understanding Python decorators][1] 中提到的几点找几个实例做一下扩展，以加深对 decorator 的认识。
 
-### Classic uses are extending a function behavior from an external lib (you can't modify it)
+* Classic uses are extending a function behavior from an external lib (you can't modify it)
+* You can use them to extends several functions with the same code without rewriting it every time, for DRY's sake.
 
-### You can use them to extends several functions with the same code without rewriting it every time, for DRY's sake.
+### python 自带装饰器
 
-### python 本身提供的 staticmethod, classmethod, property, etc.
-
-**TODO**
+**TODO staticmethod, classmethod, property, etc.**
 
 ### For a debug purpose (you don't want to modify it because it's temporary). 
 
@@ -302,10 +301,10 @@ tags: python decorator
 
 ## REF
 
-* [Understanding Python decorators][1]
-* [关于Python decorator的应用][2]
-* [[Python学习]decorator的使用][3]
-* [依云 winterpy pylib myutils.py](https://github.com/lilydjwg/winterpy/blob/master/pylib/myutils.py)
+* [1. Understanding Python decorators][1]
+* [2. 关于Python decorator的应用][2]
+* [3. [Python学习]decorator的使用][3]
+* [4. 依云 winterpy pylib myutils.py](https://github.com/lilydjwg/winterpy/blob/master/pylib/myutils.py)
 
 -- EOF --
 
