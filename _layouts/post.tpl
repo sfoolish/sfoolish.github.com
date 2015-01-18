@@ -18,4 +18,5 @@ scripts:
 	{% capture permaurl %}http://{{site.host}}{{ page.url }}{% endcapture %}
 	<!--<p class="permalink">永久链接：<a href="{{ permaurl }}">{{ permaurl }}</a></p>-->
 </article>
-<div id="disqus_thread" class="comments"></div>
+
+<div sytle="display:none" id="disqus_thread" class="comments"></div>

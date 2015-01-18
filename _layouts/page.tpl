@@ -40,12 +40,13 @@
 		<p>爱生活，爱代码，爱折腾。。。</p>
 	</div>
 	
-	<a href="http://github.com/sfoolish"><img style="position: absolute; top: 0; right: 0; border: 0;" src="/assets/css/pic/forkme_right_orange_ff7600.png" alt="Fork me on GitHub"></a>
+	<!--a href="http://github.com/sfoolish"><img style="position: absolute; top: 0; right: 0; border: 0;" src="/assets/css/pic/forkme_right_orange_ff7600.png" alt="Fork me on GitHub"></a-->
 </side>
 
 <script src="/assets/js/elf-0.3.3-min.js"></script>
 <script src="/assets/js/site.js"></script>
 <script src="/assets/js/highlight.pack.js"></script>
+<script src="/assets/js/jquery-1.11.2.min.js"></script>
 <script>hljs.initHighlightingOnLoad();</script>
 <!-- <script src="/assets/js/highlight.js"></script>
 <script src="/assets/js/hljs/languages/css.js"></script>
