@@ -13,8 +13,8 @@ header{font-size:80%;}
 header h1 .minor{color:#999; font-weight:normal;}
 header .additional{font-size:90%; color:#ccc;}
 
-.main{position:relative; zoom:1; width:62%; padding:2em 3em; background:#ccc}
-side{position:fixed; left:62%; top:0; right:0; height:100%; overflow:hidden; padding:2em 3em; background:#eee; box-shadow:5px 0 5px rgba(0,0,0,.1) inset; font-size:75%;}
+.main{position:relative; zoom:1; width:80%; padding:2em 3em; background:#ccc}
+side{position:fixed; left:80%; top:0; right:0; height:100%; overflow:hidden; padding:2em 3em; background:#eee; box-shadow:5px 0 5px rgba(0,0,0,.1) inset; font-size:75%;}
 side h2{margin:1em 0;}
 side .feed-link{margin-left:0.5em;}
 side .block{max-width:240px; margin:1.5em 0;}

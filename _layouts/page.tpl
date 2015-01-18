@@ -23,7 +23,7 @@
 </div>
 
 <side>
-	<h2><a href="/">sfoolish</a><a href="/feed.xml" class="feed-link" title="RSS订阅"><img src="http://blog.rexsong.com/wp-content/themes/rexsong/icon_feed.gif" alt="RSS feed" /></a></h2>
+	<h2><a href="/">sfoolish</a></h2>
 	
 	<nav class="block">
 		<ul>
@@ -37,13 +37,13 @@
 		<figure>
 			<figcaption><strong>sfoolish</strong></figcaption>
 		</figure>
-		<p>又是一码农，单身嘿嘿，爱生活，爱代码，爱折腾。电子信息类专业小本，做过三年多嵌入式开发，准备去做 WEB 后端开发。八月初裸辞，在云南呆了近一个月，目前暂居大理剑川沙溪古镇。<strong>Available for hire</strong>, <a href="/liangqi_resume.html">简历 / RESUME / CV</a> .</p>
+		<p>爱生活，爱代码，爱折腾。。。</p>
 	</div>
 	
-	<a href="http://github.com/sfoolish"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_orange_ff7600.png" alt="Fork me on GitHub"></a>
+	<a href="http://github.com/sfoolish"><img style="position: absolute; top: 0; right: 0; border: 0;" src="/assets/css/pic/forkme_right_orange_ff7600.png" alt="Fork me on GitHub"></a>
 </side>
 
-<script src="http://elfjs.googlecode.com/files/elf-0.3.3-min.js"></script>
+<script src="/assets/js/elf-0.3.3-min.js"></script>
 <script src="/assets/js/site.js"></script>
 <script src="/assets/js/highlight.pack.js"></script>
 <script>hljs.initHighlightingOnLoad();</script>
